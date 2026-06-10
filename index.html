@@ -350,7 +350,7 @@ const OAUTH_CLIENT_ID = '289f0f34-5b2a-4da4-83d4-21e22ba2817d';
 const OAUTH_SCOPES    = 'asset:read offline';
 
 // Cloudflare Worker proxy URL — update this after deploying the Worker
-const TOKEN_PROXY_URL = 'https://bynder-token-proxy.jamirahman.workers.dev';
+const TOKEN_PROXY_URL = 'https://bynder-token-proxy.jamirahman.workers.dev/';
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 let PORTAL='', TOKEN='', OAUTH_TOKEN='', timer=null, lastQ='';
@@ -415,7 +415,7 @@ async function startOAuth(){
 async function exchangeToken(code,redirectUri,portal){
   try{
     // Call our Cloudflare Worker proxy — it adds the client secret server-side
-    const res=await fetch(TOKEN_PROXY_URL+'/token',{
+    const res=await fetch(TOKEN_PROXY_URL+'token',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
@@ -526,7 +526,7 @@ async function apiFetch(path,params={}){
 
 async function similaritySearch(textQuery){
   // Route through Cloudflare Worker — Bynder blocks direct browser calls to this endpoint
-  const r=await fetch(TOKEN_PROXY_URL+'/search',{
+  const r=await fetch(TOKEN_PROXY_URL+'search',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({textQuery, portal:PORTAL, access_token:OAUTH_TOKEN})
@@ -534,9 +534,7 @@ async function similaritySearch(textQuery){
   const text=await r.text();
   if(!r.ok) throw new Error(`Similarity search HTTP ${r.status}: ${text.substring(0,300)}`);
   const data=JSON.parse(text);
-  const raw=Array.isArray(data)?data:(data.media||data.assets||data.ids||[]);
-  // Bynder may return plain ID strings or objects with an id field
-  const ids=raw.map(item=>typeof item==='string'?item:(item.id||item.databaseId||item)).filter(id=>typeof id==='string'&&id.length>0);
+  const ids=Array.isArray(data)?data:(data.media||data.assets||data.ids||[]);
   if(ids.length===0) return [];
   // Fetch full asset details in batches of 50
   const results=[];
