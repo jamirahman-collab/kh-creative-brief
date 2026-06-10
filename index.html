@@ -415,7 +415,7 @@ async function startOAuth(){
 async function exchangeToken(code,redirectUri,portal){
   try{
     // Call our Cloudflare Worker proxy — it adds the client secret server-side
-    const res=await fetch(TOKEN_PROXY_URL+'token',{
+    const res=await fetch(TOKEN_PROXY_URL+'/token',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
@@ -526,7 +526,7 @@ async function apiFetch(path,params={}){
 
 async function similaritySearch(textQuery){
   // Route through Cloudflare Worker — Bynder blocks direct browser calls to this endpoint
-  const r=await fetch(TOKEN_PROXY_URL+'search',{
+  const r=await fetch(TOKEN_PROXY_URL+'/search',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({textQuery, portal:PORTAL, access_token:OAUTH_TOKEN})
