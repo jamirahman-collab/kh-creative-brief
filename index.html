@@ -349,6 +349,9 @@ textarea.v{border-color:var(--blue);background:var(--blue-l);}
 const OAUTH_CLIENT_ID = '289f0f34-5b2a-4da4-83d4-21e22ba2817d';
 const OAUTH_SCOPES    = 'asset:read offline';
 
+// Cloudflare Worker proxy URL — update this after deploying the Worker
+const TOKEN_PROXY_URL = 'https://bynder-token-proxy.jamirahman.workers.dev/';
+
 // ─── STATE ────────────────────────────────────────────────────────────────────
 let PORTAL='', TOKEN='', OAUTH_TOKEN='', timer=null, lastQ='';
 const usedIds=new Set();
@@ -411,12 +414,15 @@ async function startOAuth(){
 
 async function exchangeToken(code,redirectUri,portal){
   try{
-    const res=await fetch(`${portal}/v6/authentication/oauth2/token`,{
+    // Call our Cloudflare Worker proxy — it adds the client secret server-side
+    const res=await fetch(TOKEN_PROXY_URL,{
       method:'POST',
-      headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      body:new URLSearchParams({
-        grant_type:'authorization_code',client_id:OAUTH_CLIENT_ID,
-        code,redirect_uri:redirectUri,code_verifier:sessionStorage.getItem('ov')
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        code,
+        redirect_uri:redirectUri,
+        code_verifier:sessionStorage.getItem('ov'),
+        portal
       })
     });
     const data=await res.json();
