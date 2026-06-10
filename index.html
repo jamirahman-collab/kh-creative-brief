@@ -415,7 +415,7 @@ async function startOAuth(){
 async function exchangeToken(code,redirectUri,portal){
   try{
     // Call our Cloudflare Worker proxy — it adds the client secret server-side
-    const res=await fetch(TOKEN_PROXY_URL,{
+    const res=await fetch(TOKEN_PROXY_URL+'token',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
@@ -525,16 +525,15 @@ async function apiFetch(path,params={}){
 }
 
 async function similaritySearch(textQuery){
-  // POST /api/1/assets/similarity-search/ — requires OAuth2 token (permanent tokens rejected)
-  const r=await fetch(`${PORTAL}/api/1/assets/similarity-search/`,{
+  // Route through Cloudflare Worker — Bynder blocks direct browser calls to this endpoint
+  const r=await fetch(TOKEN_PROXY_URL+'search',{
     method:'POST',
-    headers:{Authorization:`Bearer ${OAUTH_TOKEN}`,'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({textQuery})
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({textQuery, portal:PORTAL, access_token:OAUTH_TOKEN})
   });
   const text=await r.text();
   if(!r.ok) throw new Error(`Similarity search HTTP ${r.status}: ${text.substring(0,300)}`);
   const data=JSON.parse(text);
-  // Bynder returns an array of asset IDs (or similar structure)
   const ids=Array.isArray(data)?data:(data.media||data.assets||data.ids||[]);
   if(ids.length===0) return [];
   // Fetch full asset details in batches of 50
