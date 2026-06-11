@@ -340,7 +340,7 @@ textarea.filled{border-color:var(--blue);background:var(--blue-l);}
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const OAUTH_CLIENT_ID = '43d0c99e-765e-45a2-b790-e5504689c89f';
+const OAUTH_CLIENT_ID = 'b7725363-6e64-4eba-a78b-96cfa23ffd36';
 const OAUTH_SCOPES    = 'asset:read offline';
 const WORKER_URL      = 'https://bynder-token-proxy.jamirahman.workers.dev';
 const HARDCODED_PORTAL = 'https://kraftheinz.bynder.com';
@@ -545,12 +545,18 @@ async function aiSearch(textQuery){
   }
 
   // Fetch full asset details via permanent token, batched 50 at a time
+  // NOTE: ids param must use literal commas — do NOT encode via api() helper
   const results = [];
   for(let i=0; i<ids.length; i+=50){
     try{
       const batch = ids.slice(i,i+50).join(',');
       dlog('req', `GET /api/v4/media/ batch ${Math.floor(i/50)+1}`, `ids=${batch.substring(0,80)}...`);
-      const d = await api('/api/v4/media/', { ids:batch, limit:50 });
+      const url = `${PORTAL}/api/v4/media/?ids=${batch}&limit=50`;
+      const r = await fetch(url, { headers:{ Authorization:`Bearer ${TOKEN}`, Accept:'application/json' } });
+      const text = await r.text();
+      drawRaw('GET /api/v4/media/ (batch)', r.status, text);
+      if(!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d = JSON.parse(text);
       const assets = Array.isArray(d) ? d : (d.media||d.data||[]);
       dlog('ok', `Batch ${Math.floor(i/50)+1} returned ${assets.length} assets`);
       results.push(...assets);
