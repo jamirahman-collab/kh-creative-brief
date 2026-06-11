@@ -350,7 +350,7 @@ textarea.filled{border-color:var(--blue);background:var(--blue-l);}
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const OAUTH_CLIENT_ID = '43d0c99e-765e-45a2-b790-e5504689c89f';
+const OAUTH_CLIENT_ID = 'PASTE_CLIENT_ID_HERE';
 const OAUTH_SCOPES    = 'asset:read offline';
 const WORKER_URL      = 'https://bynder-token-proxy.jamirahman.workers.dev';
 
@@ -550,9 +550,9 @@ async function aiSearch(textQuery){
   const data = JSON.parse(text);
 
   // Normalise response — Bynder may return array of strings or array of objects
-  const raw = Array.isArray(data) ? data : (data.media || data.assets || data.ids || []);
+  const raw = Array.isArray(data) ? data : (data.assets || data.media || data.ids || []);
   dlog('info', `Similarity search raw response`, `type=${typeof data} isArray=${Array.isArray(data)} length=${raw.length} first=${JSON.stringify(raw[0]||null)}`);
-  const ids = raw.map(x => typeof x==='string' ? x : (x.id||x.databaseId||'')).filter(Boolean);
+  const ids = raw.map(x => typeof x==='string' ? x : (x.assetId||x.id||x.databaseId||'')).filter(Boolean);
   dlog('info', `Extracted ${ids.length} IDs from similarity search`, ids.slice(0,5).join(', ')+(ids.length>5?'...':''));
   if(ids.length===0){
     dlog('warn', 'Similarity search returned 0 IDs — showing success popup');
