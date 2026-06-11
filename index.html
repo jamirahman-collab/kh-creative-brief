@@ -205,20 +205,10 @@ textarea.filled{border-color:var(--blue);background:var(--blue-l);}
 <div class="mo" id="mo">
   <div class="mc">
     <h2>Bynder Connection</h2>
-    <p class="sub">Enter your portal URL and permanent token to connect. Then sign in with Bynder to enable AI-powered Natural Language Search.</p>
-    <div class="mf">
-      <label>Portal URL</label>
-      <input type="text" id="cfgUrl" placeholder="https://yourcompany.bynder.com">
-    </div>
-    <div class="mf">
-      <label>Permanent Token</label>
-      <input type="password" id="cfgToken" placeholder="Paste your permanent token">
-    </div>
-    <p class="hint-text">Needs <code>asset:read</code> and <code>meta:read</code> scope.</p>
-    <div class="divider"><span>AI SEARCH (OPTIONAL)</span></div>
+    <p class="sub">Connected to kraftheinz.bynder.com. Sign in below to enable AI-powered Natural Language Search.</p>
     <div class="oauth-box">
       <h4>Natural Language Search</h4>
-      <p>The similarity search endpoint requires OAuth2 — permanent tokens are rejected. Sign in below to enable the Describe Request field to use AI.</p>
+      <p>The similarity search endpoint requires OAuth2. Sign in to enable the Describe Request field to use AI.</p>
       <div class="oauth-status">
         <div class="oauth-dot" id="oDot"></div>
         <span class="oauth-lbl" id="oLbl">Not connected — AI Search disabled</span>
@@ -227,7 +217,7 @@ textarea.filled{border-color:var(--blue);background:var(--blue-l);}
     </div>
     <div class="mbtns">
       <button class="bs" onclick="closeModal()">Cancel</button>
-      <button class="bp" onclick="saveConfig()">Connect &amp; Resolve IDs</button>
+      <button class="bp" onclick="saveConfig()">Save</button>
     </div>
   </div>
 </div>
@@ -350,9 +340,11 @@ textarea.filled{border-color:var(--blue);background:var(--blue-l);}
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const OAUTH_CLIENT_ID = '289f0f34-5b2a-4da4-83d4-21e22ba2817d';
+const OAUTH_CLIENT_ID = '43d0c99e-765e-45a2-b790-e5504689c89f';
 const OAUTH_SCOPES    = 'asset:read offline';
 const WORKER_URL      = 'https://bynder-token-proxy.jamirahman.workers.dev';
+const HARDCODED_PORTAL = 'https://kraftheinz.bynder.com';
+const HARDCODED_TOKEN  = 'c039a3c1fbf5c3ba6e4b260dd6bab10b7a4254992e8a7f23fd2c23c356369b1a';
 
 // Kraft Heinz metaproperty IDs
 const MP = {
@@ -386,8 +378,7 @@ async function s256(s){
 
 // ─── OAUTH ────────────────────────────────────────────────────────────────────
 async function startOAuth(){
-  const portal = document.getElementById('cfgUrl').value.trim().replace(/\/$/,'');
-  if(!portal){ alert('Enter the Portal URL first.'); return; }
+  const portal = HARDCODED_PORTAL;
 
   const verifier  = rand(64);
   const challenge = await s256(verifier);
@@ -496,20 +487,14 @@ function updateHint(){
 
 // ─── MODAL ────────────────────────────────────────────────────────────────────
 function openModal(){
-  document.getElementById('cfgUrl').value  = PORTAL;
-  document.getElementById('cfgToken').value = TOKEN;
   setOAuthUI(!!OAUTH_TOKEN);
   document.getElementById('mo').classList.add('open');
 }
 function closeModal(){ document.getElementById('mo').classList.remove('open'); }
 
 async function saveConfig(){
-  const u = document.getElementById('cfgUrl').value.trim().replace(/\/$/,'');
-  const t = document.getElementById('cfgToken').value.trim();
-  if(!u||!t){ alert('Please enter both Portal URL and Permanent Token.'); return; }
-  PORTAL=u; TOKEN=t;
-  localStorage.setItem('bp', PORTAL);
-  localStorage.setItem('bt', TOKEN);
+  PORTAL = HARDCODED_PORTAL;
+  TOKEN  = HARDCODED_TOKEN;
   closeModal();
   await initApp();
 }
@@ -549,7 +534,7 @@ async function aiSearch(textQuery){
   if(!r.ok) throw new Error(`AI Search HTTP ${r.status}: ${text.substring(0,200)}`);
   const data = JSON.parse(text);
 
-  // Normalise response — Bynder may return array of strings or array of objects
+  // Normalise response — Bynder returns {assets: [{assetId, similarityScore}, ...]}
   const raw = Array.isArray(data) ? data : (data.assets || data.media || data.ids || []);
   dlog('info', `Similarity search raw response`, `type=${typeof data} isArray=${Array.isArray(data)} length=${raw.length} first=${JSON.stringify(raw[0]||null)}`);
   const ids = raw.map(x => typeof x==='string' ? x : (x.assetId||x.id||x.databaseId||'')).filter(Boolean);
@@ -876,12 +861,13 @@ function clearLog(){ dbgEntries.length=0; rawResponses.length=0; renderLog(); re
 
 // ─── BOOT ─────────────────────────────────────────────────────────────────────
 (function boot(){
-  PORTAL      = localStorage.getItem('bp')    || '';
-  TOKEN       = localStorage.getItem('bt')    || '';
+  PORTAL      = HARDCODED_PORTAL;
+  TOKEN       = HARDCODED_TOKEN;
   OAUTH_TOKEN = sessionStorage.getItem('oat') || '';
-  dlog('info', 'App booted', `PORTAL=${PORTAL||'(none)'} TOKEN=${TOKEN?'set':'not set'} OAUTH=${OAUTH_TOKEN?'set':'not set'}`);
-  if(PORTAL&&TOKEN) initApp();
-  else show('sInit');
+  localStorage.setItem('bp', PORTAL);
+  localStorage.setItem('bt', TOKEN);
+  dlog('info', 'App booted', `PORTAL=${PORTAL} TOKEN=set OAUTH=${OAUTH_TOKEN?'set':'not set'}`);
+  initApp();
 })();
 </script>
 </body>
