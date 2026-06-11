@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kraft Heinz Creative Brief — Bynder Asset Intelligence</title>
+<title>Kraft Heinz Creative Brief</title>
 <style>
-:root {
-  --black:#000;--white:#fff;--blue:#276EF1;--blue-h:#1a5dd4;--blue-l:#EBF2FF;
+:root{
+  --black:#000;--white:#fff;
+  --blue:#276EF1;--blue-h:#1a5dd4;--blue-l:#EBF2FF;
   --g100:#F6F6F6;--g200:#EEEEEE;--g300:#DDDDDD;--g500:#999;--g700:#545454;
-  --green:#05944F;--green-l:#E6F7EF;--red:#C72335;--red-l:#FDECEA;--teal:#00C1A4;
+  --green:#05944F;--green-l:#E6F7EF;
+  --red:#C72335;--red-l:#FDECEA;
   --purple:#7c4dcc;--purple-l:#f5f0ff;--purple-b:#d9c7f5;
   --font:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
   --r:8px;--rlg:12px;
@@ -16,19 +18,20 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:var(--font);background:var(--g100);color:var(--black);min-height:100vh;display:flex;flex-direction:column;font-size:14px;}
 
-.nav{background:var(--white);color:var(--black);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:200;border-bottom:1px solid var(--g200);}
+/* NAV */
+.nav{background:var(--white);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:200;border-bottom:1px solid var(--g200);}
 .nav-left{display:flex;align-items:center;gap:16px;}
-.logo{font-size:19px;font-weight:800;letter-spacing:-.5px;}
 .nsep{width:1px;height:18px;background:rgba(0,0,0,.15);}
 .nlabel{font-size:12px;color:rgba(0,0,0,.45);letter-spacing:.04em;}
-.live-badge{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:#05944F;background:#E6F7EF;border:1px solid #b3e6d0;padding:4px 10px 4px 8px;border-radius:20px;letter-spacing:.01em;}
-.ldot{width:9px;height:9px;border-radius:50%;background:#05944F;box-shadow:0 0 0 0 rgba(5,148,79,.5);}
-.ldot.on{animation:livepulse 2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.75)}}
-@keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(5,148,79,.5)}70%{box-shadow:0 0 0 6px rgba(5,148,79,0)}100%{box-shadow:0 0 0 0 rgba(5,148,79,0)}}
-.cfg-btn{background:none;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.7);padding:5px 12px;border-radius:6px;font-size:11px;cursor:pointer;font-family:var(--font);transition:background .15s;}
+.live-badge{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--green);background:var(--green-l);border:1px solid #b3e6d0;padding:4px 10px 4px 8px;border-radius:20px;}
+.ldot{width:9px;height:9px;border-radius:50%;background:var(--green);}
+.ldot.on{animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(5,148,79,.5)}70%{box-shadow:0 0 0 6px rgba(5,148,79,0)}100%{box-shadow:0 0 0 0 rgba(5,148,79,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cfg-btn{background:none;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.7);padding:5px 12px;border-radius:6px;font-size:11px;cursor:pointer;font-family:var(--font);}
 .cfg-btn:hover{background:rgba(0,0,0,.05);}
 
+/* MODALS */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:center;justify-content:center;}
 .mo.open{display:flex;}
 .mc{background:var(--white);border-radius:var(--rlg);padding:28px;width:480px;max-width:95vw;}
@@ -38,187 +41,158 @@ body{font-family:var(--font);background:var(--g100);color:var(--black);min-heigh
 .mf label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g700);margin-bottom:5px;}
 .mf input{width:100%;border:1.5px solid var(--g300);border-radius:var(--r);padding:9px 12px;font-family:var(--font);font-size:13px;outline:none;}
 .mf input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(39,110,241,.1);}
+.hint-text{font-size:11px;color:var(--g500);margin-top:-8px;}
 .mbtns{display:flex;gap:10px;margin-top:20px;}
-.bp{flex:1;background:var(--black);color:var(--white);border:none;border-radius:var(--r);padding:11px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:background .15s;}
+.bp{flex:1;background:var(--black);color:var(--white);border:none;border-radius:var(--r);padding:11px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;}
 .bp:hover{background:var(--g700);}
 .bs{flex:1;background:var(--white);color:var(--black);border:1.5px solid var(--g300);border-radius:var(--r);padding:11px;font-family:var(--font);font-size:13px;cursor:pointer;}
-
-/* Modal divider */
-.modal-divider{display:flex;align-items:center;gap:10px;margin:20px 0 16px;}
-.modal-divider span{font-size:11px;color:var(--g500);white-space:nowrap;letter-spacing:.07em;}
-.modal-divider::before,.modal-divider::after{content:'';flex:1;height:1px;background:var(--g200);}
-/* OAuth section */
-.oauth-section{background:var(--g100);border:1px solid var(--g200);border-radius:var(--r);padding:14px 16px;margin-bottom:4px;}
-.oauth-section h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g700);margin-bottom:4px;}
-.oauth-section p{font-size:11px;color:var(--g500);line-height:1.5;margin-bottom:12px;}
-.oauth-status{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
-.oauth-dot{width:8px;height:8px;border-radius:50%;background:var(--g300);flex-shrink:0;}
-.oauth-dot.connected{background:var(--purple);}
-.oauth-label{font-size:12px;color:var(--g500);}
-.oauth-label.connected{color:var(--purple);font-weight:600;}
-.oauth-btn{width:100%;background:var(--purple);color:var(--white);border:none;border-radius:var(--r);padding:10px 14px;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:7px;}
+.divider{display:flex;align-items:center;gap:10px;margin:20px 0 16px;}
+.divider span{font-size:11px;color:var(--g500);white-space:nowrap;letter-spacing:.07em;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--g200);}
+.oauth-box{background:var(--g100);border:1px solid var(--g200);border-radius:var(--r);padding:14px 16px;}
+.oauth-box h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g700);margin-bottom:4px;}
+.oauth-box p{font-size:11px;color:var(--g500);line-height:1.5;margin-bottom:12px;}
+.oauth-status{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.oauth-dot{width:8px;height:8px;border-radius:50%;background:var(--g300);}
+.oauth-dot.on{background:var(--purple);}
+.oauth-lbl{font-size:12px;color:var(--g500);}
+.oauth-lbl.on{color:var(--purple);font-weight:600;}
+.oauth-btn{width:100%;background:var(--purple);color:var(--white);border:none;border-radius:var(--r);padding:10px;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;}
 .oauth-btn:hover{background:#6a3db8;}
-.oauth-btn.revoke{background:var(--white);color:var(--red);border:1.5px solid #f5bcc4;}
-.oauth-btn.revoke:hover{background:var(--red-l);}
-/* AI Search hint below textarea */
-.ai-hint{border-radius:var(--r);padding:9px 12px;margin-top:6px;font-size:11px;line-height:1.5;display:none;}
-.ai-hint.show{display:block;}
-.ai-hint.active{background:var(--purple-l);border:1px solid var(--purple-b);color:var(--purple);}
-.ai-hint.inactive{background:#fff8e1;border:1px solid #ffe082;color:#795800;}
-.ai-hint a{font-weight:700;cursor:pointer;text-decoration:underline;color:inherit;}
-/* Search mode badge in results header */
-.search-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;}
-.search-badge.ai{background:var(--purple-l);color:var(--purple);border:1px solid var(--purple-b);}
-.search-badge.kw{background:var(--blue-l);color:var(--blue);}
+.oauth-btn.off{background:var(--white);color:var(--red);border:1.5px solid #f5bcc4;}
+.oauth-btn.off:hover{background:var(--red-l);}
 
-.init{flex:1;display:flex;align-items:center;justify-content:center;}
+/* SCREENS */
+.screen{flex:1;display:flex;align-items:center;justify-content:center;}
 .init-card{background:var(--white);border-radius:var(--rlg);padding:40px;text-align:center;max-width:400px;border:1px solid var(--g200);}
 .init-card .ic{font-size:36px;margin-bottom:16px;}
 .init-card h2{font-size:18px;font-weight:700;margin-bottom:8px;}
 .init-card p{font-size:13px;color:var(--g500);line-height:1.6;margin-bottom:24px;}
-
-.loading{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+.loading-inner{display:flex;flex-direction:column;align-items:center;gap:14px;}
 .lspin{width:32px;height:32px;border:3px solid var(--g200);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg)}}
 .ltxt{font-size:13px;color:var(--g500);}
-
-.err{flex:1;display:flex;align-items:center;justify-content:center;}
 .err-card{background:var(--white);border-radius:var(--rlg);padding:32px;text-align:center;max-width:420px;border:1px solid #fcc;}
-.err-card .ei{font-size:32px;margin-bottom:12px;}
 .err-card h3{font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;}
 .err-card p{font-size:13px;color:var(--g700);line-height:1.6;margin-bottom:16px;}
-.err-det{font-size:11px;font-family:monospace;background:var(--g100);padding:10px 12px;border-radius:6px;text-align:left;color:var(--g700);word-break:break-all;margin-bottom:16px;}
+.err-det{font-size:11px;font-family:monospace;background:var(--g100);padding:10px;border-radius:6px;text-align:left;color:var(--g700);word-break:break-all;margin-bottom:16px;}
 
-.app{flex:1;display:flex;justify-content:center;}.left{max-width:520px;width:100%;border-right:none;}
-.left{background:var(--white);border-right:1px solid var(--g200);padding:24px 28px;overflow-y:auto;}
+/* MAIN FORM */
+.app{flex:1;display:flex;justify-content:center;}
+.form-panel{background:var(--white);max-width:520px;width:100%;padding:24px 28px;overflow-y:auto;}
 .ph h2{font-size:18px;font-weight:700;letter-spacing:-.3px;margin-bottom:4px;}
 .ph p{font-size:12px;color:var(--g500);line-height:1.55;margin-bottom:22px;}
-
-.ss{background:var(--white);border-radius:var(--r);padding:10px 14px;margin-bottom:16px;border:1px solid var(--g200);}
-.ss h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g700);margin-bottom:8px;}
-.msr{display:flex;align-items:center;justify-content:space-between;padding:3px 0;font-size:11px;}
-.msr .mn{color:var(--g700);}
-.msr .mid{font-family:monospace;font-size:10px;color:var(--g500);background:var(--g100);padding:1px 5px;border-radius:3px;}
-.msr .mb{font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;}
-.bok{background:var(--green-l);color:var(--green);}
-.bno{background:var(--red-l);color:var(--red);}
-
 .fr{margin-bottom:16px;}
 .fl{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g700);margin-bottom:6px;}
-.mt{font-size:9px;font-weight:600;background:var(--g100);color:var(--g500);padding:2px 5px;border-radius:3px;letter-spacing:.04em;border:1px solid var(--g200);}
-.mt.ok{background:var(--green-l);color:var(--green);border-color:#b3e6d0;}
-.mt.nok{background:var(--red-l);color:var(--red);border-color:#f5bcc4;}
-
+.ai-badge{font-size:9px;font-weight:600;background:var(--purple-l);color:var(--purple);border:1px solid var(--purple-b);padding:2px 5px;border-radius:3px;}
 .sw{position:relative;}
-.sw select{width:100%;border:1.5px solid var(--g300);border-radius:var(--r);padding:9px 34px 9px 12px;font-family:var(--font);font-size:13px;background:var(--white);appearance:none;outline:none;cursor:pointer;transition:border-color .15s;color:var(--black);}
+.sw select{width:100%;border:1.5px solid var(--g300);border-radius:var(--r);padding:9px 34px 9px 12px;font-family:var(--font);font-size:13px;background:var(--white);appearance:none;outline:none;cursor:pointer;}
 .sw select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(39,110,241,.1);}
-.sw select.v{border-color:var(--blue);background:var(--blue-l);}
+.sw select.filled{border-color:var(--blue);background:var(--blue-l);}
 .sw::after{content:'';position:absolute;right:12px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--g500);pointer-events:none;}
-textarea{width:100%;border:1.5px solid var(--g300);border-radius:var(--r);padding:9px 12px;font-family:var(--font);font-size:13px;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;line-height:1.6;}
+textarea{width:100%;border:1.5px solid var(--g300);border-radius:var(--r);padding:9px 12px;font-family:var(--font);font-size:13px;resize:vertical;min-height:80px;outline:none;line-height:1.6;}
 textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(39,110,241,.1);}
-textarea.v{border-color:var(--blue);background:var(--blue-l);}
-
-.sub-btn{width:100%;background:var(--black);color:var(--white);border:none;border-radius:var(--r);padding:13px;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;margin-top:20px;transition:background .15s;}
+textarea.filled{border-color:var(--blue);background:var(--blue-l);}
+.ai-hint{border-radius:var(--r);padding:9px 12px;margin-top:6px;font-size:11px;line-height:1.5;display:none;}
+.ai-hint.show{display:block;}
+.ai-hint.active{background:var(--purple-l);border:1px solid var(--purple-b);color:var(--purple);}
+.ai-hint.warn{background:#fff8e1;border:1px solid #ffe082;color:#795800;}
+.ai-hint a{font-weight:700;cursor:pointer;text-decoration:underline;color:inherit;}
+.sub-btn{width:100%;background:var(--black);color:var(--white);border:none;border-radius:var(--r);padding:13px;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;margin-top:20px;}
 .sub-btn:hover{background:var(--g700);}
 .sub-btn:disabled{background:var(--g300);cursor:not-allowed;}
 
-.es{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;text-align:center;}
-.eic{width:50px;height:50px;border-radius:50%;background:var(--g200);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
-.es h3{font-size:14px;font-weight:700;margin-bottom:5px;}
-.es p{font-size:12px;color:var(--g500);max-width:260px;line-height:1.6;}
-
+/* RESULTS MODAL */
+.res-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:none;align-items:flex-start;justify-content:center;padding:40px 24px;overflow-y:auto;}
+.res-ov.open{display:flex;}
+.res-modal{background:var(--white);border-radius:var(--rlg);width:100%;max-width:960px;flex-shrink:0;}
+.res-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--g200);}
+.res-head h2{font-size:16px;font-weight:700;}
+.res-meta{font-size:12px;color:var(--g500);}
+.res-meta strong{color:var(--black);}
+.close-btn{background:none;border:1.5px solid var(--g300);border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;font-family:var(--font);}
+.res-body{padding:24px;}
+.ded-banner{background:var(--green-l);border:1px solid #b3e6d0;border-radius:var(--r);padding:12px 16px;margin-bottom:18px;display:none;align-items:center;gap:10px;}
+.ded-banner.show{display:flex;}
+.ded-banner p{font-size:12px;color:var(--green);font-weight:600;}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;text-align:center;}
+.es-ic{width:50px;height:50px;border-radius:50%;background:var(--g200);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.empty-state h3{font-size:14px;font-weight:700;margin-bottom:5px;}
+.empty-state p{font-size:12px;color:var(--g500);max-width:260px;line-height:1.6;}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
+.res-foot{padding:16px 24px;border-top:1px solid var(--g200);display:flex;gap:10px;justify-content:flex-end;}
+.sbadge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;}
+.sbadge.ai{background:var(--purple-l);color:var(--purple);border:1px solid var(--purple-b);}
+.sbadge.kw{background:var(--blue-l);color:var(--blue);}
+
+/* ASSET CARDS */
 .ac{background:var(--white);border-radius:var(--rlg);overflow:hidden;border:1px solid var(--g200);transition:box-shadow .2s,transform .2s;}
 .ac:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px);}
 .th{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--g100);display:block;}
-.thp{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,var(--g100),var(--g200));display:flex;align-items:center;justify-content:center;font-size:26px;}
+.thp{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,var(--g100),var(--g200));display:flex;align-items:center;justify-content:center;font-size:28px;}
 .cb{padding:12px;}
 .cn{font-size:12px;font-weight:700;line-height:1.4;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .cm{font-size:11px;color:var(--g500);margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.cts{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+.ctags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
 .tag{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;}
 .tag.active{background:var(--green-l);color:var(--green);}
-.tag.approved{background:var(--blue-l);color:var(--blue);}
 .tag.type{background:var(--g100);color:var(--g700);}
 .card-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-.ub{width:100%;background:var(--blue);color:var(--white);border:none;border-radius:6px;padding:0 8px;height:30px;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:background .15s;}
-.ub:hover{background:var(--blue-h);}
-.ub.used{background:var(--green);cursor:default;}
-.ub-dam{width:100%;background:var(--white);color:var(--blue);border:1.5px solid var(--blue);border-radius:6px;padding:0;height:30px;box-sizing:border-box;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.ub-dam:hover{background:var(--blue-l);}
+.dl-btn{width:100%;background:var(--blue);color:var(--white);border:none;border-radius:6px;height:30px;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;}
+.dl-btn:hover{background:var(--blue-h);}
+.dl-btn.used{background:var(--green);cursor:default;}
+.dam-btn{width:100%;background:var(--white);border:1.5px solid var(--blue);border-radius:6px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.dam-btn:hover{background:var(--blue-l);}
 
-/* Results modal */
-.res-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:none;align-items:flex-start;justify-content:center;padding:40px 24px;overflow-y:auto;}
-.res-overlay.open{display:flex;}
-.res-modal{background:var(--white);border-radius:var(--rlg);width:100%;max-width:960px;overflow:hidden;flex-shrink:0;}
-.res-modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--g200);}
-.res-modal-head h2{font-size:16px;font-weight:700;}
-.res-modal-meta{font-size:12px;color:var(--g500);}
-.res-modal-meta strong{color:var(--black);}
-.res-modal-close{background:none;border:1.5px solid var(--g300);border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;font-family:var(--font);color:var(--g700);}
-.res-modal-close:hover{background:var(--g100);}
-.res-modal-body{padding:24px;}
-.res-modal-ded{background:var(--green-l);border:1px solid #b3e6d0;border-radius:var(--r);padding:12px 16px;margin-bottom:18px;display:none;align-items:center;gap:10px;}
-.res-modal-ded.show{display:flex;}
-.res-modal-ded p{font-size:12px;color:var(--green);font-weight:600;}
-.res-modal-footer{padding:16px 24px;border-top:1px solid var(--g200);display:flex;gap:10px;justify-content:flex-end;}
-
-/* Success popup */
-.success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;display:none;align-items:center;justify-content:center;}
-.success-overlay.open{display:flex;}
-.success-card{background:var(--white);border-radius:var(--rlg);padding:40px 36px;text-align:center;max-width:380px;width:90%;}
-.success-icon{width:60px;height:60px;border-radius:50%;background:var(--green-l);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px;}
-.success-card h2{font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.2px;}
-.success-card p{font-size:13px;color:var(--g500);line-height:1.6;margin-bottom:24px;}
-.success-card .done-btn{width:100%;background:var(--black);color:var(--white);border:none;border-radius:var(--r);padding:13px;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;}
-.success-card .done-btn:hover{background:var(--g700);}
+/* SUCCESS */
+.suc-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;display:none;align-items:center;justify-content:center;}
+.suc-ov.open{display:flex;}
+.suc-card{background:var(--white);border-radius:var(--rlg);padding:40px 36px;text-align:center;max-width:380px;width:90%;}
+.suc-ic{width:60px;height:60px;border-radius:50%;background:var(--green-l);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px;}
+.suc-card h2{font-size:18px;font-weight:700;margin-bottom:8px;}
+.suc-card p{font-size:13px;color:var(--g500);line-height:1.6;margin-bottom:24px;}
+.done-btn{width:100%;background:var(--black);color:var(--white);border:none;border-radius:var(--r);padding:13px;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;}
 
 .hidden{display:none!important;}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav class="nav">
   <div class="nav-left">
-    <img src="https://1000logos.net/wp-content/uploads/2021/05/Atlassian-Logo-2010s1.png" alt="Atlassian" style="height:28px;display:block;">
+    <img src="https://1000logos.net/wp-content/uploads/2021/05/Atlassian-Logo-2010s1.png" alt="Atlassian" style="height:28px;">
     <div class="nsep"></div>
     <span class="nlabel">Creative Brief</span>
     <div class="nsep"></div>
-    <div class="live-badge">
-      <div class="ldot" id="ldot"></div>
-      <span id="llabel">Bynder Connected</span>
-    </div>
+    <div class="live-badge"><div class="ldot" id="ldot"></div><span id="llabel">Bynder Connected</span></div>
   </div>
-  <button class="cfg-btn" onclick="openModal()">⚙ Configure Bynder</button>
+  <button class="cfg-btn" onclick="openModal()">&#9881; Configure Bynder</button>
 </nav>
 
-<!-- MODAL -->
+<!-- CONFIG MODAL -->
 <div class="mo" id="mo">
   <div class="mc">
     <h2>Bynder Connection</h2>
-    <p class="sub">Enter your portal URL and permanent token to load dropdown options and search. Then optionally sign in with Bynder to enable AI-powered Natural Language Search.</p>
+    <p class="sub">Enter your portal URL and permanent token to connect. Then sign in with Bynder to enable AI-powered Natural Language Search.</p>
     <div class="mf">
       <label>Portal URL</label>
-      <input type="text" id="cfgUrl" placeholder="https://yourcompany.bynder.com" />
+      <input type="text" id="cfgUrl" placeholder="https://yourcompany.bynder.com">
     </div>
     <div class="mf">
       <label>Permanent Token</label>
-      <input type="text" id="cfgToken" placeholder="Paste your permanent token here" />
+      <input type="password" id="cfgToken" placeholder="Paste your permanent token">
     </div>
-    <p style="font-size:11px;color:#999;margin-top:-8px;">Token needs <code>asset:read</code> and <code>meta:read</code> (or <code>offline</code>) scope.</p>
-
-    <div class="modal-divider"><span>AI SEARCH (OPTIONAL)</span></div>
-
-    <div class="oauth-section">
+    <p class="hint-text">Needs <code>asset:read</code> and <code>meta:read</code> scope.</p>
+    <div class="divider"><span>AI SEARCH (OPTIONAL)</span></div>
+    <div class="oauth-box">
       <h4>Natural Language Search</h4>
-      <p>Bynder's similarity search endpoint requires OAuth2 login — permanent tokens are not accepted. Sign in below to enable the Describe Request field to use AI.</p>
+      <p>The similarity search endpoint requires OAuth2 — permanent tokens are rejected. Sign in below to enable the Describe Request field to use AI.</p>
       <div class="oauth-status">
-        <div class="oauth-dot" id="oauthDot"></div>
-        <span class="oauth-label" id="oauthLabel">Not connected — AI Search disabled</span>
+        <div class="oauth-dot" id="oDot"></div>
+        <span class="oauth-lbl" id="oLbl">Not connected — AI Search disabled</span>
       </div>
-      <button class="oauth-btn" id="oauthBtn" onclick="startOAuth()">&#8594; Sign in to Bynder for AI Search</button>
+      <button class="oauth-btn" id="oBtn" onclick="startOAuth()">&#8594; Sign in to Bynder for AI Search</button>
     </div>
-
     <div class="mbtns">
       <button class="bs" onclick="closeModal()">Cancel</button>
       <button class="bp" onclick="saveConfig()">Connect &amp; Resolve IDs</button>
@@ -226,117 +200,99 @@ textarea.v{border-color:var(--blue);background:var(--blue-l);}
   </div>
 </div>
 
-<!-- INIT -->
-<div class="init" id="initScreen">
+<!-- INIT SCREEN -->
+<div class="screen" id="sInit">
   <div class="init-card">
-    <div class="ic">🔗</div>
+    <div class="ic">&#128279;</div>
     <h2>Connect to Bynder</h2>
-    <p>This app surfaces existing on-brand assets as you fill out your brief, helping reduce costly new production requests.</p>
+    <p>This app surfaces existing on-brand assets as you fill out your brief, reducing costly new production requests.</p>
     <button class="bp" onclick="openModal()">Configure Bynder Connection</button>
   </div>
 </div>
 
-<!-- LOADING -->
-<div class="loading hidden" id="loadingScreen">
-  <div class="lspin"></div>
-  <div class="ltxt" id="ltxt">Connecting to Bynder…</div>
+<!-- LOADING SCREEN -->
+<div class="screen hidden" id="sLoad">
+  <div class="loading-inner">
+    <div class="lspin"></div>
+    <div class="ltxt" id="ltxt">Connecting to Bynder&hellip;</div>
+  </div>
 </div>
 
-<!-- ERROR -->
-<div class="err hidden" id="errorScreen">
+<!-- ERROR SCREEN -->
+<div class="screen hidden" id="sErr">
   <div class="err-card">
-    <div class="ei">⚠️</div>
-    <h3>Connection Failed</h3>
-    <p>Could not reach your Bynder portal or resolve metaproperties. Check your URL and token, and ensure CORS is enabled for this origin.</p>
+    <h3>&#9888; Connection Failed</h3>
+    <p>Could not reach your Bynder portal. Check your URL and token.</p>
     <div class="err-det" id="errDet"></div>
     <button class="bp" onclick="openModal()">Reconfigure</button>
   </div>
 </div>
 
 <!-- MAIN APP -->
-<div class="app hidden" id="mainApp">
-  <div class="left">
+<div class="app hidden" id="sApp">
+  <div class="form-panel">
     <div class="ph">
       <h2>New Creative Brief</h2>
-      <p>Fill out all relevant fields below, then click the button to check Bynder for existing assets before submitting a new production request.</p>
+      <p>Fill out all relevant fields below, then click Submit to check Bynder for existing assets before creating a new production request.</p>
     </div>
-
     <div class="fr">
       <div class="fl">Brand</div>
-      <div class="sw"><select id="f_brand" onchange="onFieldChange()">
-        <option value="">— Select brand —</option>
-      </select></div>
+      <div class="sw"><select id="f_brand" onchange="onField()"><option value="">&#8212; Select brand &#8212;</option></select></div>
     </div>
-
     <div class="fr">
       <div class="fl">Asset Type</div>
-      <div class="sw"><select id="f_assetType" onchange="onFieldChange()">
-        <option value="">— Select type —</option>
-      </select></div>
+      <div class="sw"><select id="f_assetType" onchange="onField()"><option value="">&#8212; Select type &#8212;</option></select></div>
     </div>
-
     <div class="fr">
       <div class="fl">Campaign</div>
-      <div class="sw"><select id="f_campaign" onchange="onFieldChange()">
-        <option value="">— Select campaign —</option>
-      </select></div>
+      <div class="sw"><select id="f_campaign" onchange="onField()"><option value="">&#8212; Select campaign &#8212;</option></select></div>
     </div>
-
     <div class="fr">
       <div class="fl">Zone</div>
-      <div class="sw"><select id="f_zone" onchange="onFieldChange()">
-        <option value="">— Select zone —</option>
-      </select></div>
+      <div class="sw"><select id="f_zone" onchange="onField()"><option value="">&#8212; Select territory &#8212;</option></select></div>
     </div>
-
     <div class="fr">
-      <div class="fl">Describe Request <span class="mt" style="background:#f5f0ff;color:#7c4dcc;border-color:#d9c7f5;">AI Search</span></div>
-      <textarea id="f_kw" placeholder="e.g. night-time city driving, urban commuter, clean minimal…" oninput="onFieldChange()"></textarea>
+      <div class="fl">Describe Request <span class="ai-badge">AI SEARCH</span></div>
+      <textarea id="f_kw" placeholder="e.g. mac and cheese, bold packaging, summer campaign&hellip;" oninput="onField()"></textarea>
       <div id="aiHint" class="ai-hint"></div>
     </div>
-
-    <button class="sub-btn" disabled id="subBtn" onclick="onSubmit()">Submit Brief</button>
+    <button class="sub-btn" id="subBtn" disabled onclick="onSubmit()">Submit Brief</button>
   </div>
-
-
 </div>
 
 <!-- RESULTS MODAL -->
-<div class="res-overlay" id="resOverlay">
+<div class="res-ov" id="resOv">
   <div class="res-modal">
-    <div class="res-modal-head">
+    <div class="res-head">
       <div style="display:flex;align-items:center;gap:16px;">
-        <img src="https://dam.bynder.com/transform/025026c6-6fbc-4307-a0c2-437cdfaf407b/Bynder-Logo-Web-DAT" alt="Bynder" style="height:28px;width:auto;display:block;flex-shrink:0;">
+        <img src="https://dam.bynder.com/transform/025026c6-6fbc-4307-a0c2-437cdfaf407b/Bynder-Logo-Web-DAT" alt="Bynder" style="height:28px;">
         <div>
-        <h2>Existing Assets Found <span class="search-badge hidden" id="searchBadge"></span></h2>
-        <div class="res-modal-meta" id="resMeta">Searching…</div>
+          <h2>Existing Assets Found <span class="sbadge hidden" id="sBadge"></span></h2>
+          <div class="res-meta" id="resMeta">Searching&hellip;</div>
         </div>
       </div>
-      <button class="res-modal-close" onclick="closeResults()">✕ Close</button>
+      <button class="close-btn" onclick="closeResults()">&#10005; Close</button>
     </div>
-    <div class="res-modal-body">
-      <div class="res-modal-ded" id="resDed">
-        <span style="font-size:18px">✓</span>
-        <p id="resDedMsg"></p>
-      </div>
-      <div class="es" id="resEs">
-        <div class="eic">⏳</div>
-        <h3>Searching Bynder…</h3>
+    <div class="res-body">
+      <div class="ded-banner" id="dedBanner"><span style="font-size:18px">&#10003;</span><p id="dedMsg"></p></div>
+      <div class="empty-state" id="resEmpty">
+        <div class="es-ic">&#9203;</div>
+        <h3>Searching Bynder&hellip;</h3>
         <p>Finding matching assets for your brief.</p>
       </div>
       <div class="grid hidden" id="resGrid"></div>
     </div>
-    <div class="res-modal-footer">
+    <div class="res-foot">
       <button class="bs" onclick="closeResults()">Back to Brief</button>
-      <button class="bp" id="confirmSubBtn" onclick="confirmSubmit()">Submit New Request Anyway</button>
+      <button class="bp" onclick="confirmSubmit()">Submit New Request Anyway</button>
     </div>
   </div>
 </div>
 
-<!-- SUCCESS POPUP -->
-<div class="success-overlay" id="successOverlay">
-  <div class="success-card">
-    <div class="success-icon">&#10003;</div>
+<!-- SUCCESS MODAL -->
+<div class="suc-ov" id="sucOv">
+  <div class="suc-card">
+    <div class="suc-ic">&#10003;</div>
     <h2>Brief Submitted</h2>
     <p>Your creative request has been submitted for production. The team will follow up shortly.</p>
     <button class="done-btn" onclick="closeSuccess()">Done</button>
@@ -345,261 +301,260 @@ textarea.v{border-color:var(--blue);background:var(--blue-l);}
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-// Replace with your OAuth2 Client ID from the Bynder portal OAuth settings page
-const OAUTH_CLIENT_ID = '289f0f34-5b2a-4da4-83d4-21e22ba2817d';
+const OAUTH_CLIENT_ID = '43d0c99e-765e-45a2-b790-e5504689c89f';
 const OAUTH_SCOPES    = 'asset:read offline';
+const WORKER_URL      = 'https://bynder-token-proxy.jamirahman.workers.dev';
 
-// Cloudflare Worker proxy URL — update this after deploying the Worker
-const TOKEN_PROXY_URL = 'https://bynder-token-proxy.jamirahman.workers.dev/';
-
-// ─── STATE ────────────────────────────────────────────────────────────────────
-let PORTAL='', TOKEN='', OAUTH_TOKEN='', timer=null, lastQ='';
-const usedIds=new Set();
-const assetCache={};
-
-// Kraft Heinz metaproperty field IDs
-const MP={
-  brand:    {id:'096CF7A1-926A-4F6D-8E86B582F4E64B8A',opts:{}},
-  assetType:{id:'93D5547B-37A2-4691-B1BDA0598AF6D263',opts:{}},
-  campaign: {id:'F6422A0A-EC97-45F7-8160ACABB58489EE',opts:{}},
-  zone:     {id:'0FE0790F-8562-40DB-BEC269EFB96E8E4A',opts:{}},
+// Kraft Heinz metaproperty IDs
+const MP = {
+  brand:     { id:'096CF7A1-926A-4F6D-8E86B582F4E64B8A', opts:{} },
+  assetType: { id:'93D5547B-37A2-4691-B1BDA0598AF6D263', opts:{} },
+  campaign:  { id:'F6422A0A-EC97-45F7-8160ACABB58489EE', opts:{} },
+  zone:      { id:'0FE0790F-8562-40DB-BEC269EFB96E8E4A', opts:{} },
 };
 
-// ─── PKCE HELPERS ─────────────────────────────────────────────────────────────
-function genRandom(n=64){
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let PORTAL='', TOKEN='', OAUTH_TOKEN='';
+const usedIds   = new Set();
+const cache     = {};
+
+// ─── SCREENS ─────────────────────────────────────────────────────────────────
+function show(id){
+  ['sInit','sLoad','sErr','sApp'].forEach(s =>
+    document.getElementById(s).classList.toggle('hidden', s !== id)
+  );
+}
+
+// ─── PKCE ─────────────────────────────────────────────────────────────────────
+function rand(n=64){
   const a=new Uint8Array(n); crypto.getRandomValues(a);
   return btoa(String.fromCharCode(...a)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
 }
-async function sha256b64url(s){
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
-  return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+async function s256(s){
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
 }
 
-// ─── OAUTH2 PKCE FLOW ─────────────────────────────────────────────────────────
+// ─── OAUTH ────────────────────────────────────────────────────────────────────
 async function startOAuth(){
-  const portal=document.getElementById('cfgUrl').value.trim().replace(/\/$/,'');
-  if(!portal){alert('Enter the Portal URL first.');return;}
-  if(OAUTH_CLIENT_ID==='YOUR_CLIENT_ID_HERE'){
-    alert('OAuth2 Client ID not yet configured.\n\nOpen the HTML file, find:\n  const OAUTH_CLIENT_ID = \'YOUR_CLIENT_ID_HERE\';\nand replace with your actual Client ID from the Bynder portal OAuth settings.');
-    return;
-  }
-  const verifier=genRandom(64);
-  const challenge=await sha256b64url(verifier);
-  const state=genRandom(16);
-  sessionStorage.setItem('ov',verifier);
-  sessionStorage.setItem('os',state);
-  const redirectUri=window.location.href.split('?')[0].split('#')[0];
-  const params=new URLSearchParams({
-    response_type:'code',client_id:OAUTH_CLIENT_ID,
-    redirect_uri:redirectUri,scope:OAUTH_SCOPES,
-    state,code_challenge:challenge,code_challenge_method:'S256'
+  const portal = document.getElementById('cfgUrl').value.trim().replace(/\/$/,'');
+  if(!portal){ alert('Enter the Portal URL first.'); return; }
+
+  const verifier  = rand(64);
+  const challenge = await s256(verifier);
+  const state     = rand(16);
+  sessionStorage.setItem('ov', verifier);
+  sessionStorage.setItem('os', state);
+
+  const redirectUri = window.location.href.split('?')[0].split('#')[0];
+  const params = new URLSearchParams({
+    response_type:'code', client_id:OAUTH_CLIENT_ID,
+    redirect_uri:redirectUri, scope:OAUTH_SCOPES,
+    state, code_challenge:challenge, code_challenge_method:'S256'
   });
-  const popup=window.open(`${portal}/v6/authentication/oauth2/auth?${params}`,'BynderOAuth','width=620,height=720,left=200,top=80');
-  if(!popup){alert('Popup blocked. Please allow popups for this page and try again.');return;}
-  const poll=setInterval(async()=>{
-    try{
-      const url=popup.location.href;
-      if(url&&url.includes('code=')){
+
+  const popup = window.open(
+    `${portal}/v6/authentication/oauth2/auth?${params}`,
+    'BynderOAuth', 'width=620,height=720,left=200,top=80'
+  );
+  if(!popup){ alert('Popup blocked — please allow popups for this page.'); return; }
+
+  const poll = setInterval(async () => {
+    try {
+      const url = popup.location.href;
+      if(url && url.includes('code=')){
         clearInterval(poll); popup.close();
-        const u=new URL(url);
-        if(u.searchParams.get('state')!==sessionStorage.getItem('os')){
-          alert('OAuth state mismatch — possible CSRF. Please try again.'); return;
+        const u = new URL(url);
+        if(u.searchParams.get('state') !== sessionStorage.getItem('os')){
+          alert('State mismatch. Try again.'); return;
         }
-        await exchangeToken(u.searchParams.get('code'),redirectUri,portal);
+        await exchangeToken(u.searchParams.get('code'), redirectUri, portal);
       }
-    }catch(e){/* cross-origin while on Bynder domain — keep polling */}
+    } catch(e){ /* cross-origin — keep polling */ }
     if(popup.closed) clearInterval(poll);
-  },500);
+  }, 500);
 }
 
-async function exchangeToken(code,redirectUri,portal){
+async function exchangeToken(code, redirectUri, portal){
   try{
-    // Call our Cloudflare Worker proxy — it adds the client secret server-side
-    const res=await fetch(TOKEN_PROXY_URL+'token',{
+    const res = await fetch(WORKER_URL+'/token', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        code,
-        redirect_uri:redirectUri,
+      body: JSON.stringify({
+        code, redirect_uri:redirectUri,
         code_verifier:sessionStorage.getItem('ov'),
         portal
       })
     });
-    const data=await res.json();
+    const data = await res.json();
     if(data.access_token){
-      OAUTH_TOKEN=data.access_token;
-      sessionStorage.setItem('oat',OAUTH_TOKEN);
-      if(data.refresh_token) sessionStorage.setItem('ort',data.refresh_token);
+      OAUTH_TOKEN = data.access_token;
+      sessionStorage.setItem('oat', OAUTH_TOKEN);
+      if(data.refresh_token) sessionStorage.setItem('ort', data.refresh_token);
       setOAuthUI(true);
-      updateAiHint();
+      updateHint();
     } else {
-      throw new Error(data.error_description||data.error||'Unknown token error');
+      throw new Error(data.error_description || data.error || 'Token exchange failed');
     }
-  }catch(e){
-    alert('Token exchange failed: '+e.message);
+  } catch(e){
+    alert('OAuth failed: '+e.message);
   }
 }
 
 function revokeOAuth(){
   OAUTH_TOKEN='';
-  sessionStorage.removeItem('oat'); sessionStorage.removeItem('ort');
-  setOAuthUI(false); updateAiHint();
+  sessionStorage.removeItem('oat');
+  sessionStorage.removeItem('ort');
+  setOAuthUI(false);
+  updateHint();
 }
 
-function setOAuthUI(connected){
-  const dot=document.getElementById('oauthDot');
-  const lbl=document.getElementById('oauthLabel');
-  const btn=document.getElementById('oauthBtn');
-  if(connected){
-    dot.classList.add('connected');
-    lbl.textContent='Connected — AI Search enabled';
-    lbl.classList.add('connected');
-    btn.classList.add('revoke');
-    btn.textContent='Disconnect AI Search';
-    btn.onclick=revokeOAuth;
+function setOAuthUI(on){
+  document.getElementById('oDot').classList.toggle('on', on);
+  const lbl = document.getElementById('oLbl');
+  lbl.textContent = on ? 'Connected — AI Search enabled' : 'Not connected — AI Search disabled';
+  lbl.classList.toggle('on', on);
+  const btn = document.getElementById('oBtn');
+  if(on){
+    btn.textContent = 'Disconnect AI Search';
+    btn.classList.add('off');
+    btn.onclick = revokeOAuth;
   } else {
-    dot.classList.remove('connected');
-    lbl.textContent='Not connected — AI Search disabled';
-    lbl.classList.remove('connected');
-    btn.classList.remove('revoke');
-    btn.innerHTML='&#8594; Sign in to Bynder for AI Search';
-    btn.onclick=startOAuth;
+    btn.innerHTML = '&#8594; Sign in to Bynder for AI Search';
+    btn.classList.remove('off');
+    btn.onclick = startOAuth;
   }
 }
 
-function updateAiHint(){
-  const h=document.getElementById('aiHint');
+function updateHint(){
+  const h = document.getElementById('aiHint');
   if(!h) return;
   h.classList.add('show');
   if(OAUTH_TOKEN){
     h.className='ai-hint show active';
-    h.innerHTML='&#10022; AI Search active &mdash; this field uses Bynder\'s Natural Language Search to find visually similar assets.';
+    h.innerHTML='&#10022; AI Search active &mdash; uses Bynder\'s Natural Language Search to find visually similar assets.';
   } else {
-    h.className='ai-hint show inactive';
-    h.innerHTML='AI Search not connected. <a onclick="openModal()">Sign in via Configure Bynder</a> to enable it. Without it, this field uses keyword matching only.';
+    h.className='ai-hint show warn';
+    h.innerHTML='AI Search not connected. <a onclick="openModal()">Sign in via Configure Bynder</a> to enable it. Without it this field uses keyword search only.';
   }
 }
 
 // ─── MODAL ────────────────────────────────────────────────────────────────────
 function openModal(){
-  document.getElementById('cfgUrl').value=PORTAL;
-  document.getElementById('cfgToken').value=TOKEN;
+  document.getElementById('cfgUrl').value  = PORTAL;
+  document.getElementById('cfgToken').value = TOKEN;
   setOAuthUI(!!OAUTH_TOKEN);
   document.getElementById('mo').classList.add('open');
 }
-function closeModal(){document.getElementById('mo').classList.remove('open');}
+function closeModal(){ document.getElementById('mo').classList.remove('open'); }
 
 async function saveConfig(){
-  const u=document.getElementById('cfgUrl').value.trim().replace(/\/$/,'');
-  const t=document.getElementById('cfgToken').value.trim();
-  if(!u||!t){alert('Please enter both URL and token.');return;}
-  PORTAL=u;TOKEN=t;
-  localStorage.setItem('bp',PORTAL);localStorage.setItem('bt',TOKEN);
+  const u = document.getElementById('cfgUrl').value.trim().replace(/\/$/,'');
+  const t = document.getElementById('cfgToken').value.trim();
+  if(!u||!t){ alert('Please enter both Portal URL and Permanent Token.'); return; }
+  PORTAL=u; TOKEN=t;
+  localStorage.setItem('bp', PORTAL);
+  localStorage.setItem('bt', TOKEN);
   closeModal();
   await initApp();
 }
 
-function show(id){
-  ['initScreen','loadingScreen','errorScreen','mainApp'].forEach(s=>{
-    document.getElementById(s).classList.toggle('hidden',s!==id);
+// ─── API ──────────────────────────────────────────────────────────────────────
+async function api(path, params={}){
+  const qs = Object.entries(params)
+    .map(([k,v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+    .join('&');
+  const r = await fetch(`${PORTAL}${path}${qs?'?'+qs:''}`, {
+    headers:{ Authorization:`Bearer ${TOKEN}`, Accept:'application/json' }
   });
+  const text = await r.text();
+  if(!r.ok) throw new Error(`HTTP ${r.status}: ${text.substring(0,200)}`);
+  return JSON.parse(text);
 }
 
-// ─── API HELPERS ──────────────────────────────────────────────────────────────
-async function apiFetch(path,params={}){
-  const parts=[];
-  Object.entries(params).forEach(([k,v])=>{
-    if(k.startsWith('metaproperty.')){
-      parts.push(`${k}=${encodeURIComponent(v)}`);
-    } else {
-      parts.push(`${encodeURIComponent(k)}=${encodeURIComponent(v)}`);
-    }
-  });
-  const qs=parts.join('&');
-  const url=`${PORTAL}${path}${qs?'?'+qs:''}`;
-  const r=await fetch(url,{headers:{Authorization:`Bearer ${TOKEN}`,Accept:'application/json'}});
-  const text=await r.text();
-  if(!r.ok) throw new Error(`HTTP ${r.status} ${r.statusText}: ${text.substring(0,200)}`);
-  try{ return JSON.parse(text); }
-  catch(e){ throw new Error('JSON parse failed: '+e.message+' — body: '+text.substring(0,200)); }
-}
-
-async function similaritySearch(textQuery){
-  // Route through Cloudflare Worker — Bynder blocks direct browser calls to this endpoint
-  const r=await fetch(TOKEN_PROXY_URL+'search',{
+async function aiSearch(textQuery){
+  const r = await fetch(WORKER_URL+'/search', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({textQuery, portal:PORTAL, access_token:OAUTH_TOKEN})
+    body: JSON.stringify({ textQuery, portal:PORTAL, access_token:OAUTH_TOKEN })
   });
-  const text=await r.text();
-  if(!r.ok) throw new Error(`Similarity search HTTP ${r.status}: ${text.substring(0,300)}`);
-  const data=JSON.parse(text);
-  const ids=Array.isArray(data)?data:(data.media||data.assets||data.ids||[]);
+  const text = await r.text();
+  if(!r.ok) throw new Error(`AI Search HTTP ${r.status}: ${text.substring(0,200)}`);
+  const data = JSON.parse(text);
+
+  // Normalise response — Bynder may return array of strings or array of objects
+  const raw = Array.isArray(data) ? data : (data.media || data.assets || data.ids || []);
+  const ids = raw.map(x => typeof x==='string' ? x : (x.id||x.databaseId||'')).filter(Boolean);
   if(ids.length===0) return [];
-  // Fetch full asset details in batches of 50
-  const results=[];
-  for(let i=0;i<ids.length;i+=50){
-    const batch=ids.slice(i,i+50);
+
+  // Fetch full asset details via permanent token, batched 50 at a time
+  const results = [];
+  for(let i=0; i<ids.length; i+=50){
     try{
-      const detail=await apiFetch('/api/v4/media/',{ids:batch.join(','),limit:50});
-      const assets=Array.isArray(detail)?detail:(detail.media||detail.data||[]);
+      const batch = ids.slice(i,i+50).join(',');
+      const d = await api('/api/v4/media/', { ids:batch, limit:50 });
+      const assets = Array.isArray(d) ? d : (d.media||d.data||[]);
       results.push(...assets);
-    }catch(e){console.warn('Batch detail fetch failed:',e.message);}
+    } catch(e){ console.warn('Batch fetch failed:', e.message); }
   }
   return results;
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 async function initApp(){
-  if(!PORTAL||!TOKEN){show('initScreen');return;}
-  show('loadingScreen');
-  document.getElementById('ltxt').textContent='Loading options from Bynder…';
-  Object.keys(MP).forEach(k=>{MP[k].opts={};});
+  if(!PORTAL||!TOKEN){ show('sInit'); return; }
+  show('sLoad');
+  document.getElementById('ltxt').textContent = 'Loading options from Bynder\u2026';
+  Object.keys(MP).forEach(k => { MP[k].opts={}; });
+
   try{
-    const data=await apiFetch('/api/v4/metaproperties/',{count:true});
-    const allMps=Array.isArray(data)?data:Object.values(data);
-    const mpById=Object.fromEntries(allMps.filter(m=>m.id).map(m=>[m.id.toUpperCase(),m]));
-    const fieldConfig=[
-      {key:'brand',    selectId:'f_brand',    placeholder:'— Select brand —'},
-      {key:'assetType',selectId:'f_assetType',placeholder:'— Select type —'},
-      {key:'campaign', selectId:'f_campaign', placeholder:'— Select campaign —'},
-      {key:'zone',     selectId:'f_zone',     placeholder:'— Select territory —'},
-    ];
-    fieldConfig.forEach(({key,selectId,placeholder})=>{
-      const mp=mpById[MP[key].id.toUpperCase()];
+    const raw  = await api('/api/v4/metaproperties/', { count:true });
+    const byId = Object.fromEntries(
+      Object.values(raw).filter(m=>m.id).map(m=>[m.id.toUpperCase(),m])
+    );
+
+    [
+      { key:'brand',     sel:'f_brand',     ph:'\u2014 Select brand \u2014' },
+      { key:'assetType', sel:'f_assetType', ph:'\u2014 Select type \u2014' },
+      { key:'campaign',  sel:'f_campaign',  ph:'\u2014 Select campaign \u2014' },
+      { key:'zone',      sel:'f_zone',      ph:'\u2014 Select territory \u2014' },
+    ].forEach(({key,sel,ph}) => {
+      const mp = byId[MP[key].id.toUpperCase()];
       if(!mp) return;
-      const opts=mp.options||mp.metapropertyOptions||[];
-      opts.forEach(o=>{
-        const lbl=(o.displayLabel||o.label||o.name||'').trim();
-        if(lbl) MP[key].opts[lbl.toLowerCase()]=o.id;
+      const opts = mp.options || mp.metapropertyOptions || [];
+      opts.forEach(o => {
+        const l=(o.displayLabel||o.label||o.name||'').trim();
+        if(l) MP[key].opts[l.toLowerCase()] = o.id;
       });
-      const sel=document.getElementById(selectId);
-      sel.innerHTML=`<option value="">${placeholder}</option>`
-        +opts.filter(o=>(o.displayLabel||o.label||o.name||'').trim())
-             .map(o=>{const lbl=(o.displayLabel||o.label||o.name||'').trim();return`<option value="${lbl}">${lbl}</option>`;}).join('');
+      const el = document.getElementById(sel);
+      el.innerHTML = `<option value="">${ph}</option>` +
+        opts.filter(o=>(o.displayLabel||o.label||o.name||'').trim())
+            .map(o=>{ const l=(o.displayLabel||o.label||o.name||'').trim(); return `<option value="${l}">${l}</option>`; })
+            .join('');
     });
+
     document.getElementById('ldot').classList.add('on');
-    document.getElementById('llabel').textContent='Bynder Connected';
-    show('mainApp');
-    updateAiHint();
-    onFieldChange();
-  }catch(e){
-    document.getElementById('errDet').textContent=e.message;
-    show('errorScreen');
+    document.getElementById('llabel').textContent = 'Bynder Connected';
+    show('sApp');
+    updateHint();
+    onField();
+  } catch(e){
+    document.getElementById('errDet').textContent = e.message;
+    show('sErr');
   }
 }
 
 // ─── FORM ─────────────────────────────────────────────────────────────────────
-function onFieldChange(){
-  ['f_brand','f_assetType','f_campaign','f_zone'].forEach(id=>{
+function onField(){
+  ['f_brand','f_assetType','f_campaign','f_zone'].forEach(id => {
     const el=document.getElementById(id);
-    el.classList.toggle('v',!!el.value);
+    el.classList.toggle('filled', !!el.value);
   });
-  const kw=document.getElementById('f_kw');
-  kw.classList.toggle('v',kw.value.trim().length>0);
-  const any=document.getElementById('f_brand').value||document.getElementById('f_assetType').value||
-    document.getElementById('f_campaign').value||document.getElementById('f_zone').value||kw.value.trim();
-  document.getElementById('subBtn').disabled=!any;
+  const kw = document.getElementById('f_kw');
+  kw.classList.toggle('filled', kw.value.trim().length>0);
+  const any = ['f_brand','f_assetType','f_campaign','f_zone']
+    .some(id=>document.getElementById(id).value) || kw.value.trim();
+  document.getElementById('subBtn').disabled = !any;
 }
 
 async function onSubmit(){
@@ -607,215 +562,161 @@ async function onSubmit(){
   await runSearch();
 }
 
-function openResults(){
-  document.getElementById('resOverlay').classList.add('open');
-  document.getElementById('resEs').classList.remove('hidden');
-  document.getElementById('resEs').innerHTML='<div class="eic">⏳</div><h3>Searching Bynder…</h3><p>Finding matching assets for your brief.</p>';
-  document.getElementById('resGrid').classList.add('hidden');
-  document.getElementById('resGrid').innerHTML='';
-  document.getElementById('resMeta').textContent='Searching…';
-  document.getElementById('resDed').classList.remove('show');
-  document.getElementById('searchBadge').classList.add('hidden');
-}
-
-function closeResults(){
-  document.getElementById('resOverlay').classList.remove('open');
-  document.getElementById('resGrid').classList.add('hidden');
-  document.getElementById('resGrid').innerHTML='';
-  document.getElementById('resEs').classList.remove('hidden');
-  document.getElementById('resEs').innerHTML='<div class="eic">⏳</div><h3>Searching Bynder…</h3><p>Finding matching assets for your brief.</p>';
-  document.getElementById('resMeta').textContent='Searching…';
-  document.getElementById('resDed').classList.remove('show');
-  document.getElementById('resDedMsg').textContent='';
-  document.getElementById('confirmSubBtn').textContent='Submit New Request Anyway';
-  Object.keys(assetCache).forEach(k=>delete assetCache[k]);
-}
-
-function confirmSubmit(){
-  closeResults();
-  showSuccessPopup();
-}
-
 // ─── SEARCH ───────────────────────────────────────────────────────────────────
-const assetCacheKw={};
-
-function getActiveFilters(){
-  const filters={};
-  const fields={brand:'f_brand',assetType:'f_assetType',campaign:'f_campaign',zone:'f_zone'};
-  Object.entries(fields).forEach(([key,fid])=>{
-    const val=document.getElementById(fid).value;
-    if(!val)return;
-    const mp=MP[key];
-    if(!mp.id)return;
-    const optId=mp.opts[val.toLowerCase().trim()];
-    if(optId) filters[key]={mpId:mp.id,optId,label:val};
-  });
-  return filters;
+function getFilters(){
+  const f={};
+  Object.entries({brand:'f_brand',assetType:'f_assetType',campaign:'f_campaign',zone:'f_zone'})
+    .forEach(([key,fid])=>{
+      const val=document.getElementById(fid).value;
+      if(!val) return;
+      const optId=MP[key].opts[val.toLowerCase().trim()];
+      if(optId) f[key]={optId,label:val};
+    });
+  return f;
 }
 
-function assetMatchesFilters(asset,filters){
-  const filterList=Object.values(filters);
-  if(filterList.length===0) return true;
+function matches(asset, filters){
+  const list=Object.values(filters);
+  if(!list.length) return true;
   if(!asset.propertyOptions) return false;
   const arr=Array.isArray(asset.propertyOptions)?asset.propertyOptions:[asset.propertyOptions];
   const set=new Set(arr.map(v=>String(v).toLowerCase()));
-  return filterList.every(({optId})=>set.has(optId.toLowerCase()));
-}
-
-function buildApiParams(keyword){
-  const p={limit:200,orderBy:'dateCreated desc'};
-  if(keyword) p.keyword=keyword;
-  return p;
+  return list.every(({optId})=>set.has(optId.toLowerCase()));
 }
 
 async function runSearch(){
-  const kw=document.getElementById('f_kw').value.trim();
-  const filters=getActiveFilters();
-  const filterCount=Object.keys(filters).length;
-  const useAI=!!(kw&&OAUTH_TOKEN);
+  const kw      = document.getElementById('f_kw').value.trim();
+  const filters = getFilters();
+  const useAI   = !!(kw && OAUTH_TOKEN);
 
-  // Show search mode badge
-  const badge=document.getElementById('searchBadge');
+  // Update badge
+  const badge = document.getElementById('sBadge');
   if(kw){
     badge.classList.remove('hidden');
-    if(useAI){badge.textContent='✦ AI Search';badge.className='search-badge ai';}
-    else{badge.textContent='Keyword Search';badge.className='search-badge kw';}
+    badge.textContent = useAI ? '\u2726 AI Search' : 'Keyword Search';
+    badge.className   = 'sbadge ' + (useAI ? 'ai' : 'kw');
   }
-
-  log('INFO',`runSearch — kw="${kw}" filters=${filterCount} useAI=${useAI}`);
 
   try{
     let pool;
-
     if(useAI){
-      // ── SIMILARITY SEARCH (OAuth2) ─────────────────────────────────────────
-      document.getElementById('resEs').innerHTML='<div class="eic">✦</div><h3>Running AI Search…</h3><p>Bynder\'s Natural Language Search is finding similar assets.</p>';
-      pool=await similaritySearch(kw);
-      if(filterCount>0) pool=pool.filter(a=>assetMatchesFilters(a,filters));
-
+      document.getElementById('resEmpty').innerHTML =
+        '<div class="es-ic">\u2726</div><h3>Running AI Search\u2026</h3><p>Finding visually similar assets using natural language.</p>';
+      pool = await aiSearch(kw);
+      pool = pool.filter(a => matches(a, filters));
     } else {
-      // ── KEYWORD / FILTER SEARCH (permanent token) ──────────────────────────
-      const cacheKey=kw||'__all__';
-      if(!(cacheKey in assetCache)){
-        const params=buildApiParams(kw);
-        log('API FETCH',`GET /api/v4/media/ — params: ${JSON.stringify(params)}`);
-        const data=await apiFetch('/api/v4/media/',params);
-        const fetched=Array.isArray(data)?data:(data.media||data.data||[]);
-        assetCache[cacheKey]=fetched;
-      } else {
-        log('CACHE HIT',`${assetCache[cacheKey].length} assets`);
+      const ck = kw||'__all__';
+      if(!(ck in cache)){
+        const d = await api('/api/v4/media/', { limit:200, orderBy:'dateCreated desc', ...(kw?{keyword:kw}:{}) });
+        cache[ck] = Array.isArray(d) ? d : (d.media||d.data||[]);
       }
-      pool=assetCache[cacheKey];
-      if(filterCount>0) pool=pool.filter(a=>assetMatchesFilters(a,filters));
+      pool = cache[ck].filter(a => matches(a, filters));
     }
 
-    if(pool.length===0){
+    if(!pool.length){
       closeResults();
-      showSuccessPopup();
+      showSuccess();
     } else {
-      document.getElementById('resMeta').innerHTML=`<strong>${pool.length}</strong> asset${pool.length!==1?'s':''} match your request`;
-      document.getElementById('confirmSubBtn').textContent='Submit New Request Anyway';
-      renderAssets(pool);
+      document.getElementById('resMeta').innerHTML =
+        `<strong>${pool.length}</strong> asset${pool.length!==1?'s':''} match your brief`;
+      renderGrid(pool);
     }
-  }catch(e){
-    log('ERROR',e.message+' | stack: '+(e.stack||'').substring(0,300));
-    showResEs('⚠️','Search failed',e.message.substring(0,200));
+  } catch(e){
+    setEmpty('\u26a0\ufe0f','Search failed',e.message.substring(0,200));
   }
 }
 
-const TI={image:'🖼',video:'🎬',audio:'🎵',document:'📄',graphic:'🎨',photo:'📷',branding:'✦'};
+// ─── RESULTS UI ───────────────────────────────────────────────────────────────
+function openResults(){
+  document.getElementById('resOv').classList.add('open');
+  document.getElementById('resGrid').classList.add('hidden');
+  document.getElementById('resGrid').innerHTML='';
+  document.getElementById('resEmpty').classList.remove('hidden');
+  document.getElementById('resEmpty').innerHTML=
+    '<div class="es-ic">&#9203;</div><h3>Searching Bynder\u2026</h3><p>Finding matching assets for your brief.</p>';
+  document.getElementById('resMeta').textContent='Searching\u2026';
+  document.getElementById('dedBanner').classList.remove('show');
+  document.getElementById('sBadge').classList.add('hidden');
+}
 
-function renderAssets(assets){
-  document.getElementById('resEs').classList.add('hidden');
+function closeResults(){
+  document.getElementById('resOv').classList.remove('open');
+  document.getElementById('resGrid').innerHTML='';
+  Object.keys(cache).forEach(k=>delete cache[k]);
+}
+
+function confirmSubmit(){ closeResults(); showSuccess(); }
+
+function setEmpty(ic,h,p){
+  document.getElementById('resGrid').classList.add('hidden');
+  const e=document.getElementById('resEmpty');
+  e.classList.remove('hidden');
+  e.innerHTML=`<div class="es-ic">${ic}</div><h3>${h}</h3><p>${p}</p>`;
+}
+
+const ICONS={image:'\ud83d\uddbc',video:'\ud83c\udfac',audio:'\ud83c\udfb5',document:'\ud83d\udcc4',graphic:'\ud83c\udfa8',photo:'\ud83d\udcf7'};
+
+function renderGrid(assets){
+  document.getElementById('resEmpty').classList.add('hidden');
   const g=document.getElementById('resGrid');
   g.classList.remove('hidden');
   g.innerHTML=assets.map(a=>{
-    const name=a.name||a.title||'Untitled';
-    const id=a.id||a.databaseId||Math.random().toString(36).slice(2);
-    const type=(a.type||a.fileType||'').toLowerCase();
-    const icon=TI[type]||'📦';
+    const name=a.name||'Untitled';
+    const id=a.id||Math.random().toString(36).slice(2);
+    const type=(a.type||'').toLowerCase();
+    const icon=ICONS[type]||'\ud83d\udce6';
     const used=usedIds.has(id);
     let thumb='';
-    if(a.thumbnails) thumb=a.thumbnails.webimage||a.thumbnails.mini||a.thumbnails.thul||'';
+    if(a.thumbnails) thumb=a.thumbnails.webimage||a.thumbnails.mini||'';
     if(!thumb&&a.derivatives) thumb=a.derivatives.webimage||a.derivatives.mini||'';
-    const mpVals=[];
-    if(a.propertyOptions) Object.values(a.propertyOptions).forEach(v=>{
-      if(Array.isArray(v))v.forEach(x=>x&&mpVals.push(x));
-      else if(v)mpVals.push(v);
-    });
-    const meta=mpVals.filter(v=>v&&!/^[0-9A-F\-]{20,}$/i.test(v)&&v.length<60).slice(0,3).join(' · ');
+    const short=name.length>46?name.slice(0,46).trimEnd()+'\u2026':name;
     const statusTag=a.archive===0?'<span class="tag active">Active</span>':'';
     const typeTag=type?`<span class="tag type">${type}</span>`:'';
     const sid=id.replace(/[^a-z0-9]/gi,'_');
-    const shortName=name.length>46?name.substring(0,46).trimEnd()+'…':name;
-    return`<div class="ac" id="c_${sid}">
-      ${thumb?`<img class="th" src="${thumb}" alt="${shortName}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:''}
-      <div class="thp" style="${thumb?'display:none':''}"><span style="font-size:28px">${icon}</span></div>
+    const tStr=thumb.replace(/'/g,"\\'");
+    return `<div class="ac" id="c_${sid}">
+      ${thumb?`<img class="th" src="${thumb}" alt="${short}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:'' }
+      <div class="thp" style="${thumb?'display:none':''}">${icon}</div>
       <div class="cb">
-        <div class="cn" title="${name}">${shortName}</div>
-        ${meta?`<div class="cm">${meta}</div>`:''}
-        <div class="cts">${statusTag}${typeTag}</div>
+        <div class="cn" title="${name}">${short}</div>
+        <div class="ctags">${statusTag}${typeTag}</div>
         <div class="card-btns">
-          <button class="ub ${used?'used':''}" onclick="useAsset('${id}','${name.replace(/'/g,"\\'")}',((a.derivatives&&(a.derivatives.original||a.derivatives.webimage||a.derivatives.mini))||(a.thumbnails&&(a.thumbnails.webimage||a.thumbnails.mini))||'${thumb}'),this)">
-            ${used?'✓ Downloaded':'⬇ Download'}
-          </button>
-          <button class="ub-dam" onclick="viewInDAM('${id}')" title="View in Bynder DAM"><img src="https://dam.bynder.com/transform/025026c6-6fbc-4307-a0c2-437cdfaf407b/Bynder-Logo-Web-DAT" alt="View in Bynder" style="height:16px;width:auto;display:block;pointer-events:none;"></button>
+          <button class="dl-btn${used?' used':''}" onclick="dlAsset('${sid}','${name.replace(/'/g,"\\'")}','${tStr}',this)">${used?'\u2713 Downloaded':'\u2b07 Download'}</button>
+          <button class="dam-btn" onclick="window.open('${PORTAL}/media/?mediaId=${id}','_blank')" title="View in Bynder"><img src="https://dam.bynder.com/transform/025026c6-6fbc-4307-a0c2-437cdfaf407b/Bynder-Logo-Web-DAT" style="height:16px;pointer-events:none;"></button>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-function useAsset(id,name,url,btn){
-  usedIds.add(id);
-  btn.textContent='✓ Downloaded';
-  btn.classList.add('used');
-  document.getElementById('resDedMsg').textContent=`"${name}" is ready — no new request needed.`;
-  document.getElementById('resDed').classList.add('show');
-  document.getElementById('confirmSubBtn').textContent='Submit New Request Anyway';
-  if(url){
-    const a=document.createElement('a');
-    a.href=url;a.download=name;a.target='_blank';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-  }
+function dlAsset(sid, name, url, btn){
+  const id=sid; usedIds.add(id);
+  btn.textContent='\u2713 Downloaded'; btn.classList.add('used');
+  document.getElementById('dedMsg').textContent=`"${name}" is ready \u2014 no new request needed.`;
+  document.getElementById('dedBanner').classList.add('show');
+  if(url){ const a=document.createElement('a'); a.href=url; a.download=name; a.target='_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
 }
 
-function viewInDAM(id){
-  window.open(PORTAL+'/media/?mediaId='+id, '_blank');
-}
-
-function showResEs(icon,title,body){
-  document.getElementById('resGrid').classList.add('hidden');
-  const es=document.getElementById('resEs');
-  es.classList.remove('hidden');
-  es.innerHTML=`<div class="eic">${icon}</div><h3>${title}</h3><p>${body}</p>`;
-}
-
-(function boot(){
-  PORTAL=localStorage.getItem('bp')||'';
-  TOKEN=localStorage.getItem('bt')||'';
-  OAUTH_TOKEN=sessionStorage.getItem('oat')||'';
-  if(PORTAL&&TOKEN) initApp();
-  else show('initScreen');
-})();
-
-function log(){}
-
-function showSuccessPopup(){
-  document.getElementById('successOverlay').classList.add('open');
-}
+// ─── SUCCESS ──────────────────────────────────────────────────────────────────
+function showSuccess(){ document.getElementById('sucOv').classList.add('open'); }
 function closeSuccess(){
-  document.getElementById('successOverlay').classList.remove('open');
+  document.getElementById('sucOv').classList.remove('open');
   ['f_brand','f_assetType','f_campaign','f_zone'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el){el.value='';el.classList.remove('v');}
+    const el=document.getElementById(id); if(el){el.value='';el.classList.remove('filled');}
   });
-  const kw=document.getElementById('f_kw');
-  if(kw){kw.value='';kw.classList.remove('v');}
+  const kw=document.getElementById('f_kw'); if(kw){kw.value='';kw.classList.remove('filled');}
   document.getElementById('subBtn').disabled=true;
-  Object.keys(assetCache).forEach(k=>delete assetCache[k]);
   usedIds.clear();
 }
+
+// ─── BOOT ─────────────────────────────────────────────────────────────────────
+(function boot(){
+  PORTAL      = localStorage.getItem('bp')    || '';
+  TOKEN       = localStorage.getItem('bt')    || '';
+  OAUTH_TOKEN = sessionStorage.getItem('oat') || '';
+  if(PORTAL&&TOKEN) initApp();
+  else show('sInit');
+})();
 </script>
 </body>
 </html>
