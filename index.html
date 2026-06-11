@@ -350,7 +350,7 @@ textarea.filled{border-color:var(--blue);background:var(--blue-l);}
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const OAUTH_CLIENT_ID = '43d0c99e-765e-45a2-b790-e5504689c89f;
+const OAUTH_CLIENT_ID = '43d0c99e-765e-45a2-b790-e5504689c89f';
 const OAUTH_SCOPES    = 'asset:read offline';
 const WORKER_URL      = 'https://bynder-token-proxy.jamirahman.workers.dev';
 
@@ -829,7 +829,7 @@ function renderState(){
     ['OAUTH_TOKEN (mem)', OAUTH_TOKEN ? OAUTH_TOKEN.substring(0,20)+'...' : '(not set)', OAUTH_TOKEN?'ok':'warn'],
     ['sessionStorage oat', oat ? oat.substring(0,20)+'...' : '(not set)', oat?'ok':'warn'],
     ['WORKER_URL', WORKER_URL, 'ok'],
-    ['OAUTH_CLIENT_ID', OAUTH_CLIENT_ID==='43d0c99e-765e-45a2-b790-e5504689c89f'?'NOT SET':OAUTH_CLIENT_ID.substring(0,12)+'...', OAUTH_CLIENT_ID==='43d0c99e-765e-45a2-b790-e5504689c89f'?'err':'ok'],
+    ['OAUTH_CLIENT_ID', OAUTH_CLIENT_ID==='PASTE_CLIENT_ID_HERE'?'NOT SET':OAUTH_CLIENT_ID.substring(0,12)+'...', OAUTH_CLIENT_ID==='PASTE_CLIENT_ID_HERE'?'err':'ok'],
     ['MP brand ID', MP.brand.id, MP.brand.id?'ok':'err'],
     ['MP opts loaded', Object.keys(MP.brand.opts).length > 0 ? 'Yes ('+Object.keys(MP.brand.opts).length+' brands)' : 'No', Object.keys(MP.brand.opts).length?'ok':'warn'],
   ];
