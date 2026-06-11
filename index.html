@@ -433,9 +433,11 @@ async function exchangeToken(code, redirectUri, portal){
     const data = JSON.parse(text);
     if(data.access_token){
       OAUTH_TOKEN = data.access_token;
-      sessionStorage.setItem('oat', OAUTH_TOKEN);
-      if(data.refresh_token) sessionStorage.setItem('ort', data.refresh_token);
-      dlog('ok', 'OAuth token received', `access_token=${OAUTH_TOKEN.substring(0,20)}... refresh=${!!data.refresh_token}`);
+      const expiresAt = Date.now() + (data.expires_in || 3600) * 1000;
+      localStorage.setItem('oat', OAUTH_TOKEN);
+      localStorage.setItem('ort', data.refresh_token || '');
+      localStorage.setItem('oat_exp', String(expiresAt));
+      dlog('ok', 'OAuth token received', `access_token=${OAUTH_TOKEN.substring(0,20)}... refresh=${!!data.refresh_token} expires=${new Date(expiresAt).toTimeString().split(' ')[0]}`);
       setOAuthUI(true);
       updateHint();
     } else {
@@ -449,8 +451,9 @@ async function exchangeToken(code, redirectUri, portal){
 
 function revokeOAuth(){
   OAUTH_TOKEN='';
-  sessionStorage.removeItem('oat');
-  sessionStorage.removeItem('ort');
+  localStorage.removeItem('oat');
+  localStorage.removeItem('ort');
+  localStorage.removeItem('oat_exp');
   setOAuthUI(false);
   updateHint();
 }
@@ -487,8 +490,8 @@ function updateHint(){
 
 // ─── MODAL ────────────────────────────────────────────────────────────────────
 function openModal(){
-  // Always sync from sessionStorage in case token was set/cleared since last open
-  OAUTH_TOKEN = sessionStorage.getItem('oat') || '';
+  // Always sync from localStorage in case token was set/cleared since last open
+  OAUTH_TOKEN = localStorage.getItem('oat') || '';
   setOAuthUI(!!OAUTH_TOKEN);
   document.getElementById('mo').classList.add('open');
 }
@@ -829,12 +832,15 @@ function renderLog(){
 
 function renderState(){
   const el = document.getElementById('dbgState');
-  const oat = sessionStorage.getItem('oat');
+  const oat = localStorage.getItem('oat');
+  const exp = parseInt(localStorage.getItem('oat_exp')||'0',10);
+  const expStr = exp ? new Date(exp).toTimeString().split(' ')[0]+' ('+(exp>Date.now()?'valid':'expired')+')' : 'not set';
   const rows = [
     ['PORTAL', PORTAL||'(not set)', PORTAL?'ok':'err'],
     ['TOKEN', TOKEN ? TOKEN.substring(0,12)+'...' : '(not set)', TOKEN?'ok':'err'],
     ['OAUTH_TOKEN (mem)', OAUTH_TOKEN ? OAUTH_TOKEN.substring(0,20)+'...' : '(not set)', OAUTH_TOKEN?'ok':'warn'],
-    ['sessionStorage oat', oat ? oat.substring(0,20)+'...' : '(not set)', oat?'ok':'warn'],
+    ['localStorage oat', oat ? oat.substring(0,20)+'...' : '(not set)', oat?'ok':'warn'],
+    ['Token expires', expStr, exp&&exp>Date.now()?'ok':'warn'],
     ['WORKER_URL', WORKER_URL, 'ok'],
     ['OAUTH_CLIENT_ID', OAUTH_CLIENT_ID==='PASTE_CLIENT_ID_HERE'?'NOT SET':OAUTH_CLIENT_ID.substring(0,12)+'...', OAUTH_CLIENT_ID==='PASTE_CLIENT_ID_HERE'?'err':'ok'],
     ['MP brand ID', MP.brand.id, MP.brand.id?'ok':'err'],
@@ -881,15 +887,57 @@ function switchTab(tab, btn){
 
 function clearLog(){ dbgEntries.length=0; rawResponses.length=0; renderLog(); renderRaw(); document.getElementById('dbgCount').textContent='0 entries'; }
 
+async function refreshToken(){
+  const refreshTok = localStorage.getItem('ort');
+  if(!refreshTok){ dlog('warn', 'No refresh token stored — OAuth login required'); return; }
+  dlog('info', 'Access token expired — attempting silent refresh');
+  try{
+    const res = await fetch(WORKER_URL+'/refresh', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ refresh_token:refreshTok, portal:HARDCODED_PORTAL })
+    });
+    const text = await res.text();
+    const data = JSON.parse(text);
+    if(data.access_token){
+      OAUTH_TOKEN = data.access_token;
+      const expiresAt = Date.now() + (data.expires_in || 3600) * 1000;
+      localStorage.setItem('oat', OAUTH_TOKEN);
+      localStorage.setItem('oat_exp', String(expiresAt));
+      if(data.refresh_token) localStorage.setItem('ort', data.refresh_token);
+      dlog('ok', 'Token silently refreshed', `expires=${new Date(expiresAt).toTimeString().split(' ')[0]}`);
+    } else {
+      dlog('warn', 'Refresh failed — clearing tokens', data.error_description||data.error||'');
+      revokeOAuth();
+    }
+  } catch(e){
+    dlog('err', 'Token refresh error: '+e.message);
+    revokeOAuth();
+  }
+}
+
 // ─── BOOT ─────────────────────────────────────────────────────────────────────
-(function boot(){
+(async function boot(){
   PORTAL      = HARDCODED_PORTAL;
   TOKEN       = HARDCODED_TOKEN;
-  OAUTH_TOKEN = sessionStorage.getItem('oat') || '';
   localStorage.setItem('bp', PORTAL);
   localStorage.setItem('bt', TOKEN);
-  dlog('info', 'App booted', `PORTAL=${PORTAL} TOKEN=set OAUTH=${OAUTH_TOKEN?'set':'not set'}`);
-  initApp();
+
+  const storedToken   = localStorage.getItem('oat') || '';
+  const expiresAt     = parseInt(localStorage.getItem('oat_exp') || '0', 10);
+  const isExpired     = !expiresAt || Date.now() > expiresAt - 60000; // refresh 60s early
+
+  if(storedToken && !isExpired){
+    OAUTH_TOKEN = storedToken;
+    dlog('info', 'App booted', `PORTAL=${PORTAL} TOKEN=set OAUTH=set (valid)`);
+  } else if(storedToken && isExpired){
+    dlog('info', 'App booted', `PORTAL=${PORTAL} TOKEN=set OAUTH=expired — refreshing`);
+    await refreshToken();
+  } else {
+    dlog('info', 'App booted', `PORTAL=${PORTAL} TOKEN=set OAUTH=not set`);
+  }
+
+  await initApp();
 })();
 </script>
 </body>
