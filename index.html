@@ -544,12 +544,24 @@ async function aiSearch(textQuery){
     return [];
   }
 
+  // Convert v4 UUIDs (8-4-4-4-12) to ColdFusion UUIDs (8-4-4-16) required by /api/v4/media/
+  // e.g. 5087b6fd-9f40-43f1-acbf-5f5f3c362722 → 5087B6FD-9F40-43F1-ACBF5F5F3C362722
+  const cfIds = ids.map(id => {
+    const parts = id.split('-');
+    if(parts.length === 5){
+      // Join the last two groups and uppercase everything
+      return (parts[0]+'-'+parts[1]+'-'+parts[2]+'-'+parts[3]+parts[4]).toUpperCase();
+    }
+    return id.toUpperCase();
+  });
+  dlog('info', `Converted ${cfIds.length} IDs to ColdFusion format`, cfIds.slice(0,3).join(', '));
+
   // Fetch full asset details via permanent token, batched 50 at a time
   // NOTE: ids param must use literal commas — do NOT encode via api() helper
   const results = [];
-  for(let i=0; i<ids.length; i+=50){
+  for(let i=0; i<cfIds.length; i+=50){
     try{
-      const batch = ids.slice(i,i+50).join(',');
+      const batch = cfIds.slice(i,i+50).join(',');
       dlog('req', `GET /api/v4/media/ batch ${Math.floor(i/50)+1}`, `ids=${batch.substring(0,80)}...`);
       const url = `${PORTAL}/api/v4/media/?ids=${batch}&limit=50`;
       const r = await fetch(url, { headers:{ Authorization:`Bearer ${TOKEN}`, Accept:'application/json' } });
