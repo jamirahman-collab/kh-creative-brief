@@ -487,6 +487,8 @@ function updateHint(){
 
 // ─── MODAL ────────────────────────────────────────────────────────────────────
 function openModal(){
+  // Always sync from sessionStorage in case token was set/cleared since last open
+  OAUTH_TOKEN = sessionStorage.getItem('oat') || '';
   setOAuthUI(!!OAUTH_TOKEN);
   document.getElementById('mo').classList.add('open');
 }
@@ -496,7 +498,9 @@ async function saveConfig(){
   PORTAL = HARDCODED_PORTAL;
   TOKEN  = HARDCODED_TOKEN;
   closeModal();
-  await initApp();
+  // Don't re-run initApp — portal/token are hardcoded and already loaded on boot
+  // Just update the OAuth hint in case it changed
+  updateHint();
 }
 
 // ─── API ──────────────────────────────────────────────────────────────────────
